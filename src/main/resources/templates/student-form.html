@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Registration form</title>
+  </head>
+  <body>
+    <h3>Student Registration Form</h3>
+
+    <form
+      th:action="@{/processStudentForm}"
+      th:object="${student}"
+      method="POST"
+    >
+      <!-- *{firstName} shortcut for {student.firstName} -->
+      First Name: <input type="text" th:field="*{firstName}" />
+
+      <br />
+
+      <!-- *{lastName} shortcut for student.lastName -->
+      Last Name: <input type="text" th:field="*{lastName}" />
+
+      <br />
+
+      Country:
+      <!-- ${country} shortcut for student.country -->
+      <select th:field="*{country}">
+        <option
+          th:each="tempCountry: ${countries}"
+          th:value="${tempCountry}"
+          th:text="${tempCountry}"
+        ></option>
+      </select>
+
+      <br />
+
+      Favorite Programming Language:
+      <!-- ${favoriteLanguaga} shortcur for student.favoriteLanguage -->
+      <input
+        type="radio"
+        th:field="*{favoriteLanguage}"
+        th:each="tempLang : ${favoriteLanguages}"
+        th:value="${tempLang}"
+        th:text="${tempLang}"
+      />
+
+      <br />
+
+      Favorite Operating System:
+      <!-- ${favoriteOS} shortcut for student.favoriteSystems -->
+      <input
+        type="checkbox"
+        th:field="*{favoriteSystems}"
+        th:each="tempSystem : ${systems}"
+        th:value="${tempSystem}"
+        th:text="${tempSystem}"
+      />
+
+      <br />
+
+      <!-- when click submit, it will call student.set method, then send student object over-->
+      <input type="submit" value="Submit" />
+    </form>
+  </body>
+</html>
